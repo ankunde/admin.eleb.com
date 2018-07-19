@@ -15,12 +15,18 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('name',20)->comment('名称');
+            $table->string('email',50)->comment('邮箱');
+            $table->string("password",100)->comment('密码');
+            $table->string("rememberToken")->default('')->comment('token');
+            $table->integer('status')->default(0)->comment('1启用，0禁用');
+            $table->integer("shop_id")->comment('所属商家');
+            $table->engine='InnoDB';
             $table->timestamps();
         });
+
+
+
     }
 
     /**
