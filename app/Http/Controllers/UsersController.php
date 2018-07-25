@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
+//    //中间件控制
+//    public function __construct()
+//    {
+//
+//    }
     //用户列表
     public function index()//搜索分页时需要用到
     {
@@ -57,15 +62,13 @@ class UsersController extends Controller
             'notice.required'=>'店铺公告必须填写',
             'notice.max'=>'店铺公告最长255'
         ]);
-        //>>1.1处理上传图片
-        $path = $request->file('shop_img')->store('/public/'.date('Y-m-d'));
         //>>2.开启事物
-        DB::transaction(function ()  use($request,$path){
+        DB::transaction(function ()  use($request){
             //>>2.存入数据
             $value = Shops::create([
                 'shop_category_id'=>$request->shop_category_id,
                 'shop_name'=>$request->shop_name,
-                'shop_img'=>$path,
+                'shop_img'=>$request->shop_img,
                 'brand'=>$request->brand,
                 'on_time'=>$request->on_time,
                 'fengniao'=>$request->fengniao,

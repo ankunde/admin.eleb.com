@@ -1,6 +1,14 @@
 @extends('default')
+@section('css_file')
+    <!--引入CSS-->
+    <link rel="stylesheet" type="text/css" href="/webuploader/webuploader.css">
+@endsection
+@section('js_file')
+    <!--引入JS-->
+    <script type="text/javascript" src="/webuploader/webuploader.js"></script>
+@endsection
 @section('contents')
-    <form action="{{route('users.store')}}" method="post" enctype="multipart/form-data">
+    <form action="{{route('users.store')}}" method="post">
         {{csrf_field()}}
         @include('_error')
 
@@ -26,23 +34,6 @@
                 <input type="radio" name="status" id="inlineRadio30" value="1" checked>通过
             </label>
         </div>
-        {{--<div class="form-group">--}}
-            {{--所属商家:--}}
-            {{--<select class="form-control" name="shop_id">--}}
-                {{--<option value="1">东</option>--}}
-                {{--<option value="2">南</option>--}}
-                {{--<option value="3">西</option>--}}
-                {{--<option value="4">北</option>--}}
-                {{--<option value="5">中</option>--}}
-            {{--</select>--}}
-        {{--</div>--}}
-
-
-
-
-
-
-
 
         {{--商户添加--}}
             店铺分类选择:
@@ -60,7 +51,13 @@
             </div>
             <div class="form-group2">
                 <label for="shop_im">商品图片</label>
-                <input type="file" id="shop_im" name="shop_img">
+                <input type="hidden" id="shop_im" name="shop_img">
+                <div id="uploader-demo">
+                    <!--用来存放item-->
+                    <div id="fileList" class="uploader-list"></div>
+                    <div id="filePicker">选择图片</div>
+                    <img id="img">
+                </div>
             </div>
             <div class="form-group">
                 是否是品牌:
@@ -122,4 +119,37 @@
         <button type="submit" class="btn btn-default">注册</button>
     </form>
 @endsection
+@section('js')
+    <script>
+        // 初始化Web Uploader
+        var uploader = WebUploader.create({
 
+            // 选完文件后，是否自动上传。
+            auto: true,
+
+            // swf文件路径
+//            swf: BASE_URL + '/js/Uploader.swf',
+
+            // 文件接收服务端。
+            server: '{{route('upload')}}',
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#filePicker',
+
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            },
+            formData:{
+                _token:'{{csrf_token()}}'
+            }
+        });
+        uploader.on( 'uploadSuccess', function( file,response  ) {
+            $("#img").attr('src',response.imgputh);
+            $("#shop_im").val(response.imgputh);
+        });
+    </script>
+@endsection

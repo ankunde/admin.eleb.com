@@ -19,7 +19,7 @@
                 <td>{{$row->id}}</td>
                 <td>{{$row->name}}</td>
                 <td>
-                    <img width="100px" src=" {{\Illuminate\Support\Facades\Storage::url($row->img)}}" >
+                    <img width="100px" src=" {{$row->img}}" >
                 </td>
                 <td>{{$row->status}}</td>
                 <td>

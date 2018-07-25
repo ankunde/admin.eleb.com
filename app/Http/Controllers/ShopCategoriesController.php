@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\ShopCategories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ShopCategoriesController extends Controller
 {
@@ -22,6 +23,9 @@ class ShopCategoriesController extends Controller
     //接受注册信息
     public function store(Request $request)
     {
+//        $storage = Storage::disk('oss');
+//        第一个参数为上传到服务器的地址,第二个为自己选择的图片
+//        $imgputh = $storage->putFile('ShopCategories',$request->img);
 //        //>>1.验证数据
         $this->validate($request,[
             'name'=>'required|max:10',
@@ -33,12 +37,10 @@ class ShopCategoriesController extends Controller
             'img.required'=>'图片必选选择',
             'status'=>'状态必须选择'
         ]);
-        //>>1.1处理上传图片
-        $path = $request->file('img')->store('/public/'.date('Y-m-d'));
         //>>2.存入数据
         ShopCategories::create([
             'name'=>$request->name,
-            'img'=>$path,
+            'img'=>$request->img,
             'status'=>$request->status
         ]);
         //>>3.返回首页
@@ -73,7 +75,6 @@ class ShopCategoriesController extends Controller
             'status'=>$request->status
         ];
         if($path){
-            $path = $request->file('img')->store('/public/'.date('Y-m-d'));
             $data['img']=$path;
         }
         //>>2.修改数据

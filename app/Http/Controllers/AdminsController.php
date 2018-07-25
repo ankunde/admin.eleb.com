@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminsController extends Controller
 {
+//    public function __construct()
+//    {
+//        $this->middleware('auth',[
+//            'except'=>['index']
+//        ]);
+//    }
+
     //重置商户密码
     public function pwd(Request $request,Users $admin)
     {
@@ -83,7 +90,7 @@ class AdminsController extends Controller
             'password_confirmation'=>'required'
         ],[
             'name.required'=>'名称不能为空',
-            'name.max:10'=>'名称长度不能超过10',
+            'name.max'=>'名称长度不能超过10',
             'email.required'=>'邮箱不能为空',
             'email.unique'=>'该邮箱已经注册',
             'password.required'=>'密码不能为空',

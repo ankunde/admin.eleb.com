@@ -38,7 +38,15 @@ Route::get('login', 'SessionController@create')->name('login');//显示登录页
 Route::post('login', 'SessionController@store')->name('login');//创建新会话(登录)
 Route::get('logout', 'SessionController@destroy')->name('logout');//关闭会话(退出)
 
+//商品分类文件上传路由
+Route::post('upload',function (){
+    $storage = \Illuminate\Support\Facades\Storage::disk('oss');
+    $imgputh = $storage->url($storage->putFile('ShopCategories',request()->file));
+    return ['imgputh'=>$imgputh];
+})->name('upload');
 
+
+Route::resource('activity','ActivityController');//活动列表
 /**
 Route::get('/users', 'UsersController@index')->name('users.index');//用户列表
 Route::get('/users/{user}', 'UsersController@show')->name('users.show');//查看单个用户信息
@@ -49,3 +57,8 @@ Route::patch('/users/{user}', 'UsersController@update')->name('users.update');//
 Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');//删除用户信息
 
  */
+
+Route::prefix('api')->group(function () {
+    Route::get('shops','ShopsController@index');
+    Route::get('shops/{shop}','ShopsController@show');
+});

@@ -13,7 +13,6 @@ class ShopsController extends Controller
     //用户列表
     public function index()//搜索分页时需要用到
     {
-
         $rows = Shops::all();
         return view('shops.index',compact('rows'));
     }
