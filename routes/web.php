@@ -47,6 +47,29 @@ Route::post('upload',function (){
 
 
 Route::resource('activity','ActivityController');//活动列表
+
+
+//订单统计
+Route::get('/CountOrder','CountController@order')->name('CountOrder');
+Route::get('/OrderDay','CountController@order_day')->name('OrderDay');
+Route::get('/OrderMonth','CountController@order_month')->name('OrderMonth');
+//菜品统计
+Route::get('/CountMenu','CountController@menu')->name('CountMenu');
+Route::get('/MenuDay','CountController@menu_day')->name('MenuDay');
+Route::get('/MenuMonth','CountController@menu_month')->name('MenuMonth');
+
+//会员账号启用和禁用
+Route::get('/member','MemberController@index')->name('member.index');
+Route::get('/memberph/{member}','MemberController@status')->name('member.status');
+
+
+
+
+Route::resource('Permission', 'PermissionController');//权限管理
+Route::resource('Role', 'RoleController');//角色管理
+
+
+Route::resource('menus','MenusController');//菜单管理
 /**
 Route::get('/users', 'UsersController@index')->name('users.index');//用户列表
 Route::get('/users/{user}', 'UsersController@show')->name('users.show');//查看单个用户信息
@@ -57,8 +80,3 @@ Route::patch('/users/{user}', 'UsersController@update')->name('users.update');//
 Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');//删除用户信息
 
  */
-
-Route::prefix('api')->group(function () {
-    Route::get('shops','ShopsController@index');
-    Route::get('shops/{shop}','ShopsController@show');
-});

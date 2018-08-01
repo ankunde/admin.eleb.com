@@ -20,6 +20,11 @@
             <label for="password">确认密码</label>
             <input type="password" class="form-control" name="password_confirmation" id="password">
         </div>
+        <div class="form-group">
+            @foreach($role as $value)
+            <input type="checkbox" name="role_name[]" value="{{$value->id}}">{{$value->name}}
+                @endforeach
+        </div>
         <button type="submit" class="btn btn-default">添加</button>
     </form>
 @endsection

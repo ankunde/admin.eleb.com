@@ -13,6 +13,13 @@
             <label for="shop_img">邮箱</label>
             <input type="email" class="form-control" id="shop_img" name="email" value="{{$admin->email}}">
         </div>
+        <div class="form-group">
+            @foreach($role as $value)
+                <label>
+                    <input type="checkbox"  name="role_name[]" value="{{$value->id}}"{{$admin->hasAllRoles($value)?'checked':''}}>{{$value->name}}
+                </label>
+            @endforeach
+        </div>
         <button type="submit" class="btn btn-default">修改</button>
     </form>
 @endsection

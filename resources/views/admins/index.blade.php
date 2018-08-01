@@ -17,8 +17,9 @@
                     {{$row->create_time}}
                 </td>
                 <td>
-
-                    <a href="{{route('admins.edit',[$row])}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    {{--@can('9999')--}}
+                    <a href="{{route('admins.edit',[$row])}}" class="btn btn-success btn-xs" role="button">修改</a>
+                    {{--@endcan--}}
 
                     <form action="{{route('admins.destroy',[$row->id])}}" method="post">
                         {{method_field('DELETE')}}

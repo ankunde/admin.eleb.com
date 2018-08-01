@@ -27,6 +27,7 @@
 <div class="container">
     @include('_nav')
     @include('_prompt')
+    <h1>@yield('title')</h1>
     @yield('contents')
 </div>
 

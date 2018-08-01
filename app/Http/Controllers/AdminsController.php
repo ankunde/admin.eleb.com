@@ -7,15 +7,16 @@ use App\Model\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AdminsController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->middleware('auth',[
-//            'except'=>['index']
-//        ]);
-//    }
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except'=>['index']
+        ]);
+    }
 
     //重置商户密码
     public function pwd(Request $request,Users $admin)
@@ -77,11 +78,12 @@ class AdminsController extends Controller
     //添加页
     public function create()
     {
-        return view('admins.create');
+        $role = Role::all();
+        return view('admins.create',compact('role'));
     }
     //保存数据
-    public function store(Admins $admin,Request $request){
-//        dd($request->password);
+    public function store(Request $request){
+//        dd($request->role_name);
         //>>1.验证数据
         $this->validate($request,[
             'name'=>'required|max:10',
@@ -98,14 +100,14 @@ class AdminsController extends Controller
             'password_confirmation.required'=>'再次输入密码不能为空',
         ]);
         //创建时间
-        $time = date('Y-m-d H:i:s');
+        $time = date('Y-m-d H:i:s',time());
         //>>2.添加数据
-            Admins::create([
+           $admin = Admins::create([
                 'name'=>$request->name,
                 'email'=>$request->email,
                 'password'=>bcrypt($request->password),
                 'create_time'=>$time
-            ]);
+            ])->assignRole($request->role_name);
         //>>3.添加成功跳转页面
         return redirect()->route('admins.index')->with('success','添加管理员成功');
     }
@@ -118,7 +120,8 @@ class AdminsController extends Controller
     //显示修改页面
     public function edit(Request $request,Admins $admin)
     {
-        return view('admins.edit',compact('admin'));
+        $role = Role::all();
+        return view('admins.edit',compact('admin','role'));
     }
     //修改数据
     public function update(Request $request,Admins $admin)
@@ -132,7 +135,7 @@ class AdminsController extends Controller
             'email'=>'邮箱必须填写'
         ]);
         //>>2.修改数据
-        $admin->update([
+        $admin->syncRoles($request->role_name)->update([
             'name'=>$request->name,
             'email'=>$request->email
         ]);

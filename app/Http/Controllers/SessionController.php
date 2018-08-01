@@ -13,7 +13,7 @@ class SessionController extends Controller
     }
     //创建会话(登录)
     public function store(Request $request){
-//        dd($request->input());
+
         //>>1.验证数据
         $this->validate($request,[
             'email'=>'required',
