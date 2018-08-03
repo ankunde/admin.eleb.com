@@ -34,13 +34,12 @@ class PermissionController extends Controller
     {
         return view('permission.edit',compact('Permission'));
     }
-    public function update(Request $request,Permission $permission)
+    public function update(Request $request,Permission $Permission)
     {
-        $permission->update([
-            'name'=>$request->name,
-            'guard_name'=>$request->guard_name
+        $Permission->update([
+                'name'=>$request->name
         ]);
-        return redirect()->route('permission.index')->with('success','修改权限成功');
+        return redirect()->route('Permission.index')->with('success','修改权限成功');
     }
     public function destroy(Request $request,Permission $permission){
 

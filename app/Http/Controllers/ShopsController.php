@@ -6,6 +6,7 @@ use App\Model\Shops;
 use App\Model\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 
 class ShopsController extends Controller
@@ -93,6 +94,19 @@ class ShopsController extends Controller
 
     }
     public function stusta(Request $request,Shops $shop){
+
+        //>>2.发送邮件测试
+//        Mail::send('welcome',[],function ($message){
+//                $message->form('yukauiguyi@163.com','饿了吧外卖 ');
+//                $message->to(['yukauiguyi@163.com'])->subject('商户审核认证通过');
+//            });
+
+        Mail::raw('商户认证审核已经通过',function ($message){
+                $message->subject('饿了吧外卖');
+                $message->to('yukuaiguyi@163.com');
+
+        });
+        //>>1.审核通过
         $shop->update([
             'status'=>$request->status
         ]);

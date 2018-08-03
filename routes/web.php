@@ -69,7 +69,18 @@ Route::resource('Permission', 'PermissionController');//权限管理
 Route::resource('Role', 'RoleController');//角色管理
 
 
-Route::resource('menus','MenusController');//菜单管理
+Route::get('navs','NavsController@index')->name('navs.index');//菜单导航列表
+Route::get('navs/create','NavsController@create')->name('navs.create')/*->middleware('permission:create')*/;//导航添加显示
+Route::post('navs/store','NavsController@store')->name('navs.store');//保存导航菜单
+Route::get('navs/{nav}/edit','NavsController@edit')->name('navs.edit');//修改导航页面
+Route::post('navs/{nav}','NavsController@update')->name('navs.update');//跟新菜单导航
+Route::get('users/{nav}/destroy','NavsController@destroy')->name('navs.destroy');//删除当前菜单分类
+
+
+Route::get('events/lottery/{event}','EventController@lottery')->name('events.lottery');//当前活动开奖
+Route::resource('events','EventController');//抽奖活动表
+Route::get('eventmembers','EventMembersController@index');//活动报名表!!!!!!!!!!!!!
+Route::resource('eventprizes','EventPrizesController');//抽奖活动奖品表
 /**
 Route::get('/users', 'UsersController@index')->name('users.index');//用户列表
 Route::get('/users/{user}', 'UsersController@show')->name('users.show');//查看单个用户信息
@@ -80,3 +91,5 @@ Route::patch('/users/{user}', 'UsersController@update')->name('users.update');//
 Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');//删除用户信息
 
  */
+
+

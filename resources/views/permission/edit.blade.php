@@ -19,6 +19,6 @@
             <label for="exampleInputEmail1">权限名</label>
             <input type="text" name="name" class="form-control" id="exampleInputEmail1" value="{{$Permission->name}}">
         </div>
-        <button type="submit" class="btn btn-default">确认添加</button>
+        <button type="submit" class="btn btn-default">确认修改</button>
     </form>
 @endsection

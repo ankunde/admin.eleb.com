@@ -2461,8 +2461,8 @@ vjs.SliderHandle.prototype.createEl = function(type, props) {
 /* Menu
 ================================================================================ */
 /**
- * The Menu component is used to build pop up menus, including subtitle and
- * captions selection menus.
+ * The Menu component is used to build pop up navs, including subtitle and
+ * captions selection navs.
  *
  * @param {vjs.Player|Object} player
  * @param {Object=} options

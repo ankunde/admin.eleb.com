@@ -38,7 +38,8 @@ class RoleController extends Controller
     }
     public function update(Request $request,Role $Role)
     {
-        $Role->syncPermissions($request->permission_id)->update(['id'=>$request->id,'name'=>$request->name]);
+        $Role->syncPermissions($request->permission_id)
+             ->update(['id'=>$request->id,'name'=>$request->name]);
         return redirect()->route('Role.index')->with('success','修改角色成功');
     }
     public function destroy(Request $request,Role $Role){

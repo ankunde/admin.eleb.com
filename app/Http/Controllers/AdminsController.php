@@ -108,7 +108,7 @@ class AdminsController extends Controller
                 'password'=>bcrypt($request->password),
                 'create_time'=>$time
             ])->assignRole($request->role_name);
-        //>>3.添加成功跳转页面
+//        >>3.添加成功跳转页面
         return redirect()->route('admins.index')->with('success','添加管理员成功');
     }
     //删除数据

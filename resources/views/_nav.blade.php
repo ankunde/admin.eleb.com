@@ -71,3 +71,33 @@
     </div><!-- /.container-fluid -->
 </nav>
 
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                @auth
+                {!! \App\Model\Navs::getNavHtml() !!}
+                @endauth
+                {{--@foreach(\App\Model\Navs::where('pid',0)->get() as $value)
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$value->name}}<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                @foreach(\App\Model\Navs::where('pid',$value->id)->get() as $val)
+                                        @can($val->permission->name)
+
+                                            <li>
+                                                <a href="{{route($val->url)}}">
+                                                    {{$val->name}}
+                                                </a>
+                                            </li>
+                                        @endcan
+                                @endforeach
+                            </ul>
+                        </li>
+                @endforeach--}}
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
