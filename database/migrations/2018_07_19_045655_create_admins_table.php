@@ -18,7 +18,7 @@ class CreateAdminsTable extends Migration
             $table->string('name',10)->comment('名称');
             $table->string('email',20)->comment('邮箱');
             $table->string('password')->comment('密码');
-            $table->string('remember_token')->default('');
+            $table->string('rememberToken')->default('');
             $table->string('create_time');
             $table->engine='InnoDB';
             $table->timestamps();
