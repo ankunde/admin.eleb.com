@@ -29,7 +29,7 @@ class RoleController extends Controller
         //>>2.添加权限
         Role::create(['name'=>$request->name])->syncPermissions($request->permissions_name);
         //>>3.返回权限列表
-        return redirect()->route('role.index')->with('success','添加角色成功');
+        return redirect()->route('Role.index')->with('success','添加角色成功');
     }
     public function edit(Request $request,Role $Role)
     {
@@ -40,10 +40,10 @@ class RoleController extends Controller
     {
         $Role->syncPermissions($request->permission_id)
              ->update(['id'=>$request->id,'name'=>$request->name]);
-        return redirect()->route('role.index')->with('success','修改角色成功');
+        return redirect()->route('Role.index')->with('success','修改角色成功');
     }
     public function destroy(Request $request,Role $Role){
         $Role->delete();
-        return redirect()->route('role.index')->with('success','删除角色成功');
+        return redirect()->route('Role.index')->with('success','删除角色成功');
     }
 }
