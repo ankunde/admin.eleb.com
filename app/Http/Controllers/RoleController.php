@@ -10,11 +10,11 @@ class RoleController extends Controller
 {
     public function index(){
         $role = Role::all();
-        return view('Role.index',compact('role'));
+        return view('role.index',compact('role'));
     }
     public function create(){
         $permission = Permission::all();
-        return view('Role.create',compact('permission'));
+        return view('role.create',compact('permission'));
     }
     public function store(Request $request){
         //>>1.验证数据
@@ -29,21 +29,21 @@ class RoleController extends Controller
         //>>2.添加权限
         Role::create(['name'=>$request->name])->syncPermissions($request->permissions_name);
         //>>3.返回权限列表
-        return redirect()->route('Role.index')->with('success','添加角色成功');
+        return redirect()->route('role.index')->with('success','添加角色成功');
     }
     public function edit(Request $request,Role $Role)
     {
         $permission = Permission::all();
-        return view('Role.edit',compact('Role','permission'));
+        return view('role.edit',compact('Role','permission'));
     }
     public function update(Request $request,Role $Role)
     {
         $Role->syncPermissions($request->permission_id)
              ->update(['id'=>$request->id,'name'=>$request->name]);
-        return redirect()->route('Role.index')->with('success','修改角色成功');
+        return redirect()->route('role.index')->with('success','修改角色成功');
     }
     public function destroy(Request $request,Role $Role){
         $Role->delete();
-        return redirect()->route('Role.index')->with('success','删除角色成功');
+        return redirect()->route('role.index')->with('success','删除角色成功');
     }
 }
