@@ -25,7 +25,7 @@ class EventController extends Controller
      */
     public function index(){
         $event = Event::all();
-        return view('event.index',compact('event'));
+        return  view('event.index',compact('event'));
     }
     /**
      * 查看活动
@@ -67,7 +67,7 @@ class EventController extends Controller
             'signup_num.required'=>'报名人数限制必须填写'
         ]);
         //>>2.保存数据
-            Event::create([
+        $event = Event::create([
                 'title'=>$request->title,
                 'content'=>$request->content,
                 'signup_start'=>$request->signup_start,
@@ -77,6 +77,11 @@ class EventController extends Controller
                 'is_prize'=>$request->is_prize
             ]);
         //>>3.返回列表
+        $events = Event::all();
+        $contents = view('ob.enevtList',compact('events'));
+        file_put_contents('evenvt/enevtList.html',$contents);
+        $value = view('ob.enevtShow',compact('event'));
+        file_put_contents('evenvt/enevtShow.html',$value);
         return redirect()->route('events.index')->with('success','添加活动成功');
     }
     /**
@@ -121,6 +126,9 @@ class EventController extends Controller
             'prize_date'=>$request->prize_date,
             'is_prize'=>$request->is_prize
         ]);
+        $events = Event::all();
+        $contents = view('ob.enevtList',compact('events'));
+        file_put_contents('enevtList.html',$contents);
         //>>3.返回列表
         return redirect()->route('events.index')->with('success','修改活动成功');
     }
@@ -131,7 +139,9 @@ class EventController extends Controller
         if(strtotime($event->signup_start)<time()){
            return redirect()->back()->with('danger','当前活动已经开始不能删除');
         }
-        $event->delete();
+        $events = Event::all();
+        $contents = view('ob.enevtList',compact('events'));
+        file_put_contents('enevtList.html',$contents);
         return redirect()->route('events.index')->with('success','当前活动已经删除');
     }
     /**

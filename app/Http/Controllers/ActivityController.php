@@ -6,9 +6,11 @@ use App\Model\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class ActivityController extends Controller
 {
+
     //用户列表
     public function index(Request $request)//搜索分页时需要用到
     {
